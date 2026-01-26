@@ -36,6 +36,16 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="appointments"
+        options={{
+          title: "My Appointments",
+          headerShown: true,
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="paperplane.fill" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

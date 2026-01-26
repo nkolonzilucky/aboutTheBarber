@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   View,
@@ -5,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import { getServices } from "@/lib/api/services";
 import type { Service } from "@/types/db";
@@ -16,6 +18,8 @@ export default function ServicesScreen() {
   useEffect(() => {
     loadServices();
   }, []);
+
+  const router = useRouter();
 
   async function loadServices() {
     setLoading(true);
@@ -38,12 +42,24 @@ export default function ServicesScreen() {
       data={services}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View style={styles.card}>
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.meta}>
-            {item.duration_minutes} min · R{item.price}
-          </Text>
-        </View>
+        <Pressable
+          onPress={() =>
+            router.push({
+              pathname: "/request",
+              params: {
+                serviceId: item.id,
+                serviceName: item.name,
+              },
+            })
+          }
+        >
+          <View style={styles.card}>
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.meta}>
+              {item.duration_minutes} min · R{item.price}
+            </Text>
+          </View>
+        </Pressable>
       )}
     />
   );
@@ -57,7 +73,6 @@ const styles = StyleSheet.create({
   },
   list: {
     padding: 16,
-
   },
   card: {
     padding: 16,
