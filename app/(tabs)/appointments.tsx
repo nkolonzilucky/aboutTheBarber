@@ -7,13 +7,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { getMyAppointments } from "@/lib/api/appointments";
-import type { Appointment } from "@/types/db";
+import type { AppointmentWithService } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
 import { StatusBadge } from "@/components/StatusBadge";
-import { getServiceById } from "@/lib/api/services";
 
 export default function MyAppointmentsScreen() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentWithService[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
@@ -57,15 +58,6 @@ export default function MyAppointmentsScreen() {
         <Text>No appointments yet.</Text>
       </View>
     );
-  } else {
-    appointments.map((a) => {
-      getServiceById(a.service_id)
-        .then((s) => {
-          if (s?.name) a.service_id = s?.name;
-        })
-        .catch((err) => console.log("the error is", err));
-    });
-    console.log(appointments);
   }
 
   return (
@@ -75,7 +67,7 @@ export default function MyAppointmentsScreen() {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <View style={styles.card}>
-          <Text style={styles.title}>{item.service_id}</Text>
+          <Text style={styles.title}>{item.services?.name}</Text>
 
           <Text style={styles.meta}>
             {item.date} • {item.time}

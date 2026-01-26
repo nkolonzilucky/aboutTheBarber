@@ -1,6 +1,6 @@
 import { supabase } from "../supabase";
 import { getCurrentUser } from "./auth";
-import type { Appointment, AppointmentStatus } from "@/types/db";
+import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 
 export async function getPendingAppointments() {
   const { data, error } = await supabase
@@ -23,16 +23,27 @@ export async function updateAppointmentStatus(id: string, status: AppointmentSta
 }
 
 
-export async function getMyAppointments(): Promise<Appointment[]> {
+export async function getMyAppointments(): Promise<AppointmentWithService[]> {
   const user = await getCurrentUser();
 
   if (!user) {
-      throw new Error("User not authenticated");
+    throw new Error("User not authenticated");
   }
 
   const { data, error } = await supabase
     .from("appointments")
-    .select("*")
+    .select(
+      `
+      id,
+      date,
+      time,
+      status,
+      service_id,
+      services (
+        name
+      )
+    `,
+    )
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
@@ -41,7 +52,7 @@ export async function getMyAppointments(): Promise<Appointment[]> {
     return [];
   }
 
-  return data ?? [];
+  return (data as AppointmentWithService[]) ?? [];
 }
 
 

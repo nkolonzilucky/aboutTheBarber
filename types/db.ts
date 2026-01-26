@@ -9,3 +9,10 @@ export type Appointment = Database["public"]["Tables"]["appointments"]["Row"];
 
 export type AppointmentStatus =
   Database["public"]["Enums"]["appointment_status"];
+
+export type AppointmentWithService =
+  Database["public"]["Tables"]["appointments"]["Row"] & {
+    services: {
+      name: string;
+    } | null;
+  };

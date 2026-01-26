@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-  Button,
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
