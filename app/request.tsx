@@ -26,6 +26,7 @@ export default function RequestScreen() {
       Alert.alert("Requested", "Your appointment is pending approval");
       router.back();
     } catch (e) {
+      console.log(e);
       Alert.alert("Error", "Could not request appointment");
     } finally {
       setLoading(false);

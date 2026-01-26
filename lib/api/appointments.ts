@@ -19,6 +19,7 @@ export async function getMyAppointments(): Promise<Appointment[]> {
     console.error(error);
     return [];
   }
+  console.log("appointments are: ", data);
 
   return data ?? [];
 }

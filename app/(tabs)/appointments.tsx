@@ -24,9 +24,10 @@ export default function MyAppointmentsScreen() {
       const data = await getMyAppointments();
       setAppointments(data);
     } catch {
-      router.replace("/login");
+      router.push("/login");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   if (loading) {
