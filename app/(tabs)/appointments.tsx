@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { getMyAppointments } from "@/lib/api/appointments";
 import type { Appointment } from "@/types/db";
+import { router } from "expo-router";
 
 export default function MyAppointmentsScreen() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -22,8 +23,8 @@ export default function MyAppointmentsScreen() {
     try {
       const data = await getMyAppointments();
       setAppointments(data);
-    } catch (error) {
-      alert(error);
+    } catch {
+      router.replace("/login");
     }
     setLoading(false);
   }

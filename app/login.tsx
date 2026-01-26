@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, TextInput, Button, StyleSheet } from "react-native";
 import { signIn, signUp } from "@/lib/api/auth";
+import { router } from "expo-router";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -42,6 +43,12 @@ export default function LoginScreen() {
           } catch (error) {
             alert(error);
           }
+        }}
+      />
+      <Button
+        title="Cancel"
+        onPress={() => {
+          router.replace("/(tabs)");
         }}
       />
     </View>

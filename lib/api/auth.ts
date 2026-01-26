@@ -17,14 +17,14 @@ export async function signIn(email: string, password: string) {
   if (error) {
     throw error;
   } else {
-    router.replace("/(tabs)");
+    router.replace("/(tabs)/appointments");
   }
 }
 
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
-  router.replace("/login");
+  router.replace("/(tabs)");
 }
 
 export async function getSession() {
