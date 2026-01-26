@@ -7,7 +7,7 @@ export async function signUp(email: string, password: string) {
     throw error;
   } else {
     alert(
-      "Account created successfully. Supabase has sent the confirmation link to the provided email address. Login is allowed after email confirmation.",
+      "Account created successfully. Supabase has sent a confirmation link to the provided email address. Sign-in is allowed after email confirmation.",
     );
   }
 }

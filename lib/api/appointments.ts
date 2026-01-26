@@ -2,6 +2,36 @@ import { supabase } from "../supabase";
 import { getCurrentUser } from "./auth";
 import type { Appointment } from "@/types/db";
 
+export async function getPendingAppointments() {
+  const { data, error } = await supabase
+    .from("appointments")
+    .select("*")
+    .eq("status", "pending")
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data ?? [];
+}
+
+export async function updateAppointmentStatus(
+  appointmentId: string,
+  status: "approved" | "rejected",
+) {
+  const { error } = await supabase
+    .from("appointments")
+    .update({ status })
+    .eq("id", appointmentId);
+
+  if (error) {
+    throw error;
+  }
+}
+
+
 export async function getMyAppointments(): Promise<Appointment[]> {
   const user = await getCurrentUser();
 
