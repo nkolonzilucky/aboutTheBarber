@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,15 +13,21 @@ import {
 } from "@/lib/api/appointments";
 import { isBarber } from "@/lib/api/admin";
 import type { Appointment } from "@/types/db";
+import { router, useFocusEffect } from "expo-router";
 
 export default function AdminScreen() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [allowed, setAllowed] = useState(false);
 
-  useEffect(() => {
-    checkAccess();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      checkAccess();
+    }, []),
+  );
+  // useEffect(() => {
+  //   checkAccess();
+  // }, []);
 
   async function checkAccess() {
     const ok = await isBarber();
@@ -31,6 +37,7 @@ export default function AdminScreen() {
       loadAppointments();
     } else {
       setLoading(false);
+      router.push("/login");
     }
   }
 
