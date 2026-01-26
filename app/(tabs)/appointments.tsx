@@ -9,6 +9,8 @@ import {
 import { getMyAppointments } from "@/lib/api/appointments";
 import type { Appointment } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
+import { StatusBadge } from "@/components/StatusBadge";
+
 
 export default function MyAppointmentsScreen() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -60,10 +62,13 @@ export default function MyAppointmentsScreen() {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <View style={styles.card}>
-          <Text style={styles.status}>{item.status.toUpperCase()}</Text>
+          <Text style={styles.title}>{item.service_id}</Text>
+
           <Text style={styles.meta}>
-            {item.date} · {item.time}
+            {item.date} • {item.time}
           </Text>
+
+          <StatusBadge status={item.status} />
         </View>
       )}
     />
@@ -80,20 +85,20 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
+    backgroundColor: "#111827",
+    borderRadius: 16,
     padding: 16,
-    borderRadius: 12,
-    backgroundColor: "#fff",
     marginBottom: 12,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
   },
-  status: {
+
+  title: {
+    color: "#E5E7EB",
+    fontSize: 16,
     fontWeight: "600",
-    marginBottom: 6,
   },
+
   meta: {
-    color: "#666",
+    marginVertical: 6,
+    color: "#9CA3AF",
   },
 });

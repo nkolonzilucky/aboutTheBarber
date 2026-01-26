@@ -1,6 +1,6 @@
 import { supabase } from "../supabase";
 import { getCurrentUser } from "./auth";
-import type { Appointment } from "@/types/db";
+import type { Appointment, AppointmentStatus } from "@/types/db";
 
 export async function getPendingAppointments() {
   const { data, error } = await supabase
@@ -17,18 +17,9 @@ export async function getPendingAppointments() {
   return data ?? [];
 }
 
-export async function updateAppointmentStatus(
-  appointmentId: string,
-  status: "approved" | "rejected",
-) {
-  const { error } = await supabase
-    .from("appointments")
-    .update({ status })
-    .eq("id", appointmentId);
 
-  if (error) {
-    throw error;
-  }
+export async function updateAppointmentStatus(id: string, status: AppointmentStatus) {
+  return supabase.from("appointments").update({ status }).eq("id", id);
 }
 
 
