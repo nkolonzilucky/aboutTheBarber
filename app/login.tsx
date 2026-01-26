@@ -24,8 +24,26 @@ export default function LoginScreen() {
         style={styles.input}
       />
 
-      <Button title="Sign In" onPress={() => signIn(email, password)} />
-      <Button title="Sign Up" onPress={() => signUp(email, password)} />
+      <Button
+        title="Sign In"
+        onPress={() => {
+          try {
+            signIn(email, password);
+          } catch (error) {
+            alert(error);
+          }
+        }}
+      />
+      <Button
+        title="Sign Up"
+        onPress={() => {
+          try {
+            signUp(email, password);
+          } catch (error) {
+            alert(error);
+          }
+        }}
+      />
     </View>
   );
 }
