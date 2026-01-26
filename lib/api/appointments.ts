@@ -42,7 +42,7 @@ export async function getMyAppointments(): Promise<Appointment[]> {
   const { data, error } = await supabase
     .from("appointments")
     .select("*")
-    .eq("customer_id", user.id)
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -66,7 +66,7 @@ export async function requestAppointment(
   }
 
   const { error } = await supabase.from("appointments").insert({
-    customer_id: user.id,
+    user_id: user.id,
     service_id: serviceId,
     date,
     time,

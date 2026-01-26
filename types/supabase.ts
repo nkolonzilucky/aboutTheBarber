@@ -17,30 +17,30 @@ export type Database = {
       appointments: {
         Row: {
           created_at: string | null
-          customer_id: string | null
           date: string
           id: string
           service_id: string | null
           status: string
           time: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string | null
-          customer_id?: string | null
           date: string
           id?: string
           service_id?: string | null
           status?: string
           time: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string | null
-          customer_id?: string | null
           date?: string
           id?: string
           service_id?: string | null
           status?: string
           time?: string
+          user_id?: string | null
         }
         Relationships: [
           {
