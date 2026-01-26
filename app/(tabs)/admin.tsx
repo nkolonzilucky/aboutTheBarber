@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,9 @@ import {
   updateAppointmentStatus,
 } from "@/lib/api/appointments";
 import { isBarber } from "@/lib/api/admin";
-import type { Appointment } from "@/types/db";
+import type { Appointment, AppointmentStatus } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
+import AppointmentCard from "@/components/AppointmentCard";
 
 export default function AdminScreen() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -48,7 +49,7 @@ export default function AdminScreen() {
     setLoading(false);
   }
 
-  async function handleUpdate(id: string, status: "approved" | "rejected") {
+  async function handleUpdate(id: string, status: AppointmentStatus) {
     await updateAppointmentStatus(id, status);
     loadAppointments();
   }
@@ -75,22 +76,11 @@ export default function AdminScreen() {
       data={appointments}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View style={styles.card}>
-          <Text style={styles.meta}>
-            {item.date} · {item.time}
-          </Text>
-
-          <View style={styles.actions}>
-            <Button
-              title="Approve"
-              onPress={() => handleUpdate(item.id, "approved")}
-            />
-            <Button
-              title="Reject"
-              onPress={() => handleUpdate(item.id, "rejected")}
-            />
-          </View>
-        </View>
+        <AppointmentCard
+          appointment={item}
+          isBarber={allowed}
+          onUpdateStatus={handleUpdate}
+        />
       )}
     />
   );

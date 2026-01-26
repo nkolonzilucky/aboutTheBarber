@@ -10,7 +10,7 @@ import { getMyAppointments } from "@/lib/api/appointments";
 import type { Appointment } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
 import { StatusBadge } from "@/components/StatusBadge";
-
+import { getServiceById } from "@/lib/api/services";
 
 export default function MyAppointmentsScreen() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -32,8 +32,12 @@ export default function MyAppointmentsScreen() {
     try {
       const data = await getMyAppointments();
       setAppointments(data);
-    } catch {
-      router.push("/login");
+    } catch (err) {
+      if (String(err).includes("User not authenticated")) {
+        router.push("/login");
+      } else {
+        alert(err);
+      }
     } finally {
       setLoading(false);
     }
@@ -53,6 +57,15 @@ export default function MyAppointmentsScreen() {
         <Text>No appointments yet.</Text>
       </View>
     );
+  } else {
+    appointments.map((a) => {
+      getServiceById(a.service_id)
+        .then((s) => {
+          if (s?.name) a.service_id = s?.name;
+        })
+        .catch((err) => console.log("the error is", err));
+    });
+    console.log(appointments);
   }
 
   return (
