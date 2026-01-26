@@ -11,12 +11,14 @@ import {
   updateAppointmentStatus,
 } from "@/lib/api/appointments";
 import { isBarber } from "@/lib/api/admin";
-import type { Appointment, AppointmentStatus } from "@/types/db";
+import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
 import AppointmentCard from "@/components/AppointmentCard";
 
 export default function AdminScreen() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentWithService[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
   const [allowed, setAllowed] = useState(false);
 

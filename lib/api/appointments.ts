@@ -2,10 +2,23 @@ import { supabase } from "../supabase";
 import { getCurrentUser } from "./auth";
 import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 
-export async function getPendingAppointments() {
+export async function getPendingAppointments(): Promise<
+  AppointmentWithService[]
+> {
   const { data, error } = await supabase
     .from("appointments")
-    .select("*")
+    .select(
+      `
+      id,
+      date,
+      time,
+      status,
+      service_id,
+      services (
+        name
+      )
+    `,
+    )
     .eq("status", "pending")
     .order("created_at", { ascending: true });
 
@@ -14,7 +27,7 @@ export async function getPendingAppointments() {
     return [];
   }
 
-  return data ?? [];
+  return (data as AppointmentWithService[]) ?? [];
 }
 
 

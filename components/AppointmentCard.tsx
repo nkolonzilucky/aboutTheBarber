@@ -1,10 +1,14 @@
-import { Appointment, AppointmentStatus } from "@/types/db";
+import {
+  Appointment,
+  AppointmentStatus,
+  AppointmentWithService,
+} from "@/types/db";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { STATUS_COLORS } from "@/constants/status_styles";
 
 type Props = {
-  appointment: Appointment;
+  appointment: AppointmentWithService;
   isBarber: boolean;
   onUpdateStatus: (id: string, status: AppointmentStatus) => void;
 };
@@ -17,7 +21,7 @@ const AppointmentCard = (props: Props) => {
     <View>
       {isBarber && status === "pending" && (
         <View style={styles.card}>
-          <Text style={styles.title}>Fade Cut</Text>
+          <Text style={styles.title}>{appointment.services?.name}</Text>
           <Text style={styles.meta}>
             📅 {appointment.date} • {appointment.time}
           </Text>
