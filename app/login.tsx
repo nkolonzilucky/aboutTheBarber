@@ -30,7 +30,6 @@ export default function LoginScreen() {
         onPress={() => {
           try {
             signIn(email, password);
-            router.back();
           } catch (error) {
             alert(error);
           }

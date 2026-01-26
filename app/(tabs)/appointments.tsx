@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,15 +8,22 @@ import {
 } from "react-native";
 import { getMyAppointments } from "@/lib/api/appointments";
 import type { Appointment } from "@/types/db";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 export default function MyAppointmentsScreen() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadAppointments();
-  }, []);
+  // useEffect(() => {
+  //   loadAppointments();
+  //   console.log("appointment loaded");
+  // }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, []),
+  );
 
   async function loadAppointments() {
     setLoading(true);

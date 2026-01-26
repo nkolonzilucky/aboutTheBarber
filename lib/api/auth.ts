@@ -17,7 +17,7 @@ export async function signIn(email: string, password: string) {
   if (error) {
     throw error;
   } else {
-    router.replace("/(tabs)/appointments");
+    router.back();
   }
 }
 
