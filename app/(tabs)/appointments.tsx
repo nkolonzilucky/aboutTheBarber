@@ -19,8 +19,12 @@ export default function MyAppointmentsScreen() {
 
   async function loadAppointments() {
     setLoading(true);
-    const data = await getMyAppointments();
-    setAppointments(data);
+    try {
+      const data = await getMyAppointments();
+      setAppointments(data);
+    } catch (error) {
+      alert(error);
+    }
     setLoading(false);
   }
 
