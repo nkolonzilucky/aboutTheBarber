@@ -1,11 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import {
   getAllAppointments,
   getMyAppointments,
@@ -13,7 +7,6 @@ import {
 } from "@/lib/api/appointments";
 import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
-import { StatusBadge } from "@/components/StatusBadge";
 import AppointmentCard from "@/components/AppointmentCard";
 import { isBarber } from "@/lib/api/admin";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
@@ -28,7 +21,6 @@ export default function MyAppointmentsScreen() {
   useFocusEffect(
     useCallback(() => {
       loadAppointments();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 
