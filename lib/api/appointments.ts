@@ -61,8 +61,31 @@ export async function getMyAppointments(): Promise<AppointmentWithService[]> {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error(error);
-    return [];
+    throw error;
+  }
+
+  return (data as AppointmentWithService[]) ?? [];
+}
+
+export async function getAllAppointments(): Promise<AppointmentWithService[]> {
+  const { data, error } = await supabase
+    .from("appointments")
+    .select(
+      `
+      id,
+      date,
+      time,
+      status,
+      service_id,
+      services (
+        name
+      )
+    `,
+    )
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw error;
   }
 
   return (data as AppointmentWithService[]) ?? [];

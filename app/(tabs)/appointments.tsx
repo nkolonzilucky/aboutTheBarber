@@ -6,27 +6,44 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-import { getMyAppointments } from "@/lib/api/appointments";
-import type { AppointmentWithService } from "@/types/db";
+import {
+  getAllAppointments,
+  getMyAppointments,
+  updateAppointmentStatus,
+} from "@/lib/api/appointments";
+import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
 import { StatusBadge } from "@/components/StatusBadge";
+import AppointmentCard from "@/components/AppointmentCard";
+import { isBarber } from "@/lib/api/admin";
+import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 
 export default function MyAppointmentsScreen() {
   const [appointments, setAppointments] = useState<AppointmentWithService[]>(
     [],
   );
   const [loading, setLoading] = useState(true);
+  const [allow, setAllow] = useState(false);
+
   useFocusEffect(
     useCallback(() => {
       loadAppointments();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 
   async function loadAppointments() {
     setLoading(true);
+    const ok = await isBarber();
+    setAllow(ok);
     try {
-      const data = await getMyAppointments();
-      setAppointments(data);
+      if (ok) {
+        const data = await getAllAppointments();
+        setAppointments(data);
+      } else {
+        const data = await getMyAppointments();
+        setAppointments(data);
+      }
     } catch (err) {
       if (String(err).includes("User not authenticated")) {
         router.push("/login");
@@ -38,12 +55,13 @@ export default function MyAppointmentsScreen() {
     }
   }
 
+   async function handleUpdate(id: string, status: AppointmentStatus) {
+     await updateAppointmentStatus(id, status);
+     loadAppointments();
+   }
+
   if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    return <ActivityIndicatorComponent />;
   }
 
   if (appointments.length === 0) {
@@ -60,15 +78,11 @@ export default function MyAppointmentsScreen() {
       data={appointments}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View style={styles.card}>
-          <Text style={styles.title}>{item.services?.name}</Text>
-
-          <Text style={styles.meta}>
-            {item.date} • {item.time}
-          </Text>
-
-          <StatusBadge status={item.status} />
-        </View>
+        <AppointmentCard
+          appointment={item}
+          isBarber={allow}
+          onUpdateStatus={handleUpdate}
+        />
       )}
     />
   );

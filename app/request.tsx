@@ -27,8 +27,12 @@ export default function RequestScreen() {
       Alert.alert("Requested", "Your appointment is pending approval");
       router.back();
     } catch (e) {
-      console.log(e);
-      Alert.alert("Error", "Could not request appointment");
+      if (String(e).includes("User not authenticated")) {
+        router.push("/login");
+      } else {
+        console.log(e);
+        Alert.alert("Error", "Could not request appointment");
+      }
     } finally {
       setLoading(false);
     }

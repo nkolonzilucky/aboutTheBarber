@@ -18,28 +18,27 @@ const AppointmentCard = (props: Props) => {
   const { id, status } = appointment;
 
   return (
-    <View>
+    <View style={styles.card}>
+      <Text style={styles.title}>{appointment.services?.name}</Text>
+      <Text style={styles.meta}>
+        📅 {appointment.date} • {appointment.time}
+      </Text>
+      <View style={styles.statusRow}>
+        <View
+          style={[styles.dot, { backgroundColor: STATUS_COLORS[status] }]}
+        />
+        <Text
+          style={{
+            backgroundColor: STATUS_COLORS[status],
+            paddingHorizontal: 10,
+            borderRadius: 16,
+          }}
+        >
+          {appointment.status}
+        </Text>
+      </View>
       {isBarber && status === "pending" && (
-        <View style={styles.card}>
-          <Text style={styles.title}>{appointment.services?.name}</Text>
-          <Text style={styles.meta}>
-            📅 {appointment.date} • {appointment.time}
-          </Text>
-          <View style={styles.statusRow}>
-            <View
-              style={[styles.dot, { backgroundColor: STATUS_COLORS[status] }]}
-            />
-            <Text
-              style={{
-                backgroundColor: STATUS_COLORS[status],
-                paddingHorizontal: 10,
-                borderRadius: 16,
-              }}
-            >
-              Pending
-            </Text>
-          </View>
-
+        <>
           <View style={styles.actions}>
             <Pressable
               style={[styles.button, styles.approve]}
@@ -55,7 +54,7 @@ const AppointmentCard = (props: Props) => {
               <Text style={styles.buttonText}>Reject</Text>
             </Pressable>
           </View>
-        </View>
+        </>
       )}
     </View>
   );
