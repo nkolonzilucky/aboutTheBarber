@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Button, StyleSheet, Alert, Pressable } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { requestAppointment } from "@/lib/api/appointments";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function RequestScreen() {
   const { serviceId, serviceName } = useLocalSearchParams<{
@@ -10,20 +11,24 @@ export default function RequestScreen() {
     serviceName: string;
   }>();
 
-  // const router = useRouter();
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [date, setDate] = useState<Date | null>(null);
+  const [time, setTime] = useState<Date | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   async function handleRequest() {
-    if (!date || !time) {
-      Alert.alert("Missing info", "Please select date and time");
+    const appointmentTime = getAppointmentDateTime();
+
+    if (!appointmentTime) {
+      Alert.alert("Please select date and time");
       return;
     }
 
     try {
       setLoading(true);
-      await requestAppointment(serviceId, date, time);
+      await requestAppointment(serviceId, appointmentTime);
       Alert.alert("Requested", "Your appointment is pending approval");
       router.back();
     } catch (e) {
@@ -38,6 +43,15 @@ export default function RequestScreen() {
     }
   }
 
+  function getAppointmentDateTime() {
+    if (!date || !time) return null;
+
+    const combined = new Date(date);
+    combined.setHours(time.getHours(), time.getMinutes(), 0, 0);
+
+    return combined.toISOString();
+  }
+
   if (loading) {
     return <ActivityIndicatorComponent />;
   }
@@ -46,19 +60,53 @@ export default function RequestScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>{serviceName}</Text>
 
-      <TextInput
-        placeholder="Date (YYYY-MM-DD)"
-        value={date}
-        onChangeText={setDate}
-        style={styles.input}
-      />
+      <Pressable onPress={() => setShowDatePicker(true)} style={styles.input}>
+        <Text>{date ? date.toDateString() : "Select date"}</Text>
+      </Pressable>
 
-      <TextInput
-        placeholder="Time (HH:MM)"
-        value={time}
-        onChangeText={setTime}
-        style={styles.input}
-      />
+      {showDatePicker && (
+        <DateTimePicker
+          value={date ?? new Date()}
+          mode="date"
+          display="default"
+          minimumDate={new Date()}
+          onChange={(_, selectedDate) => {
+            setShowDatePicker(false);
+            if (selectedDate) {
+              setDate(selectedDate);
+              setTime(null); // reset time if date changes
+            }
+          }}
+        />
+      )}
+
+      {date && (
+        <Pressable onPress={() => setShowTimePicker(true)} style={styles.input}>
+          <Text>
+            {time
+              ? time.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "Select time"}
+          </Text>
+        </Pressable>
+      )}
+
+      {showTimePicker && (
+        <DateTimePicker
+          value={time ?? new Date()}
+          mode="time"
+          display="default"
+          minuteInterval={15}
+          onChange={(_, selectedTime) => {
+            setShowTimePicker(false);
+            if (selectedTime) {
+              setTime(selectedTime);
+            }
+          }}
+        />
+      )}
 
       <Button
         title={loading ? "Requesting…" : "Request Appointment"}
@@ -81,9 +129,9 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    padding: 12,
+    borderColor: "#1F2933",
+    borderRadius: 12,
+    padding: 14,
     marginBottom: 12,
   },
 });

@@ -16,30 +16,27 @@ export type Database = {
     Tables: {
       appointments: {
         Row: {
+          appointment_at: string
           created_at: string | null
-          date: string
           id: string
           service_id: string | null
           status: Database["public"]["Enums"]["appointment_status"]
-          time: string
           user_id: string | null
         }
         Insert: {
+          appointment_at: string
           created_at?: string | null
-          date: string
           id?: string
           service_id?: string | null
           status?: Database["public"]["Enums"]["appointment_status"]
-          time: string
           user_id?: string | null
         }
         Update: {
+          appointment_at?: string
           created_at?: string | null
-          date?: string
           id?: string
           service_id?: string | null
           status?: Database["public"]["Enums"]["appointment_status"]
-          time?: string
           user_id?: string | null
         }
         Relationships: [

@@ -11,15 +11,19 @@ type Props = {
 
 const AppointmentCard = (props: Props) => {
   const { appointment, isBarber, onUpdateStatus } = props;
-  const { id, status } = appointment;
-
+  const { id, status, appointment_at } = appointment;
+  const appointmentDate = new Date(appointment_at);
   return (
     <Pressable
       style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
     >
       <Text style={styles.title}>{appointment.services?.name}</Text>
       <Text style={styles.meta}>
-        📅 {appointment.date} • {appointment.time}
+        📅 {appointmentDate.toLocaleDateString()} •{" "}
+        {appointmentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
       </Text>
       <View style={{ marginTop: 10 }}>
         <StatusBadge status={appointment.status} />

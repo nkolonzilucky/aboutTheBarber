@@ -10,8 +10,7 @@ export async function getPendingAppointments(): Promise<
     .select(
       `
       id,
-      date,
-      time,
+      appointment_at,
       status,
       service_id,
       services (
@@ -48,8 +47,7 @@ export async function getMyAppointments(): Promise<AppointmentWithService[]> {
     .select(
       `
       id,
-      date,
-      time,
+      appointment_at,
       status,
       service_id,
       services (
@@ -73,8 +71,7 @@ export async function getAllAppointments(): Promise<AppointmentWithService[]> {
     .select(
       `
       id,
-      date,
-      time,
+      appointment_at,
       status,
       service_id,
       services (
@@ -94,8 +91,7 @@ export async function getAllAppointments(): Promise<AppointmentWithService[]> {
 
 export async function requestAppointment(
   serviceId: string,
-  date: string,
-  time: string,
+  appointment_at: string,
 ) {
   const user = await getCurrentUser();
 
@@ -106,8 +102,7 @@ export async function requestAppointment(
   const { error } = await supabase.from("appointments").insert({
     user_id: user.id,
     service_id: serviceId,
-    date,
-    time,
+    appointment_at,
     status: "pending",
   });
 
