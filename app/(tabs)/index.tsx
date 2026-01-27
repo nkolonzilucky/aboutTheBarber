@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { getBarberProfile } from "@/lib/api/barber";
 import type { BarberProfile } from "@/types/db";
+import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 
 export default function ProfileScreen() {
   const [profile, setProfile] = useState<BarberProfile | null>(null);
@@ -19,11 +20,7 @@ export default function ProfileScreen() {
   }
 
   if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    return <ActivityIndicatorComponent />;
   }
 
   if (!profile) {

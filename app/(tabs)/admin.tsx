@@ -20,6 +20,7 @@ export default function AdminScreen() {
   useFocusEffect(
     useCallback(() => {
       checkAccess();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 
@@ -28,18 +29,27 @@ export default function AdminScreen() {
     setAllowed(ok);
 
     if (ok) {
-      loadAppointments();
+      try {
+        setLoading(true);
+        loadAppointments();
+      } catch (err) {
+        if (String(err).includes("User not authenticated")) {
+          router.push("/login");
+        } else {
+          alert(err);
+        }
+      } finally {
+        setLoading(false);
+      }
     } else {
-      setLoading(false);
+      alert("Only an admin user can access this screen. Login as an admin.");
       router.push("/login");
     }
   }
 
   async function loadAppointments() {
-    setLoading(true);
     const data = await getPendingAppointments();
     setAppointments(data);
-    setLoading(false);
   }
 
   async function handleUpdate(id: string, status: AppointmentStatus) {
