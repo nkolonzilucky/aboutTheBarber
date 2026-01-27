@@ -20,9 +20,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Abou`theBarber",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <IconSymbol size={28} name="face.smiling.fill" color={color} />
           ),
         }}
       />
@@ -32,7 +32,7 @@ export default function TabLayout() {
           title: "Services",
           headerShown: true,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <IconSymbol size={28} name="book.pages.fill" color={color} />
           ),
         }}
       />
@@ -42,7 +42,11 @@ export default function TabLayout() {
           title: "My Appointments",
           headerShown: true,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <IconSymbol
+              size={28}
+              name="list.bullet.clipboard.fill"
+              color={color}
+            />
           ),
         }}
       />
@@ -52,7 +56,11 @@ export default function TabLayout() {
           title: "logout",
           headerShown: true,
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <IconSymbol
+              size={28}
+              name="circle.badge.xmark.fill"
+              color={color}
+            />
           ),
         }}
       />

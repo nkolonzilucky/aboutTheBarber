@@ -1,3 +1,4 @@
+import { STATUS_COLORS } from "@/constants/status_styles";
 import { AppointmentStatus } from "@/types/db";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -7,7 +8,7 @@ type Props = {
 
 export function StatusBadge({ status }: Props) {
   return (
-    <View style={[styles.badge, styles[status]]}>
+    <View style={[styles.badge, { backgroundColor: STATUS_COLORS[status] }]}>
       <Text style={styles.text}>{status.toUpperCase()}</Text>
     </View>
   );
@@ -25,17 +26,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
     color: "#FFFFFF",
-  },
-
-  pending: {
-    backgroundColor: "#F59E0B", // amber
-  },
-
-  approved: {
-    backgroundColor: "#10B981", // green
-  },
-
-  rejected: {
-    backgroundColor: "#EF4444", // red
   },
 });

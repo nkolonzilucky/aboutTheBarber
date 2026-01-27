@@ -1,11 +1,7 @@
-import {
-  Appointment,
-  AppointmentStatus,
-  AppointmentWithService,
-} from "@/types/db";
+import { AppointmentStatus, AppointmentWithService } from "@/types/db";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
-import { STATUS_COLORS } from "@/constants/status_styles";
+import { StatusBadge } from "./StatusBadge";
 
 type Props = {
   appointment: AppointmentWithService;
@@ -18,37 +14,36 @@ const AppointmentCard = (props: Props) => {
   const { id, status } = appointment;
 
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+    >
       <Text style={styles.title}>{appointment.services?.name}</Text>
       <Text style={styles.meta}>
         📅 {appointment.date} • {appointment.time}
       </Text>
-      <View style={styles.statusRow}>
-        <View
-          style={[styles.dot, { backgroundColor: STATUS_COLORS[status] }]}
-        />
-        <Text
-          style={{
-            backgroundColor: STATUS_COLORS[status],
-            paddingHorizontal: 10,
-            borderRadius: 16,
-          }}
-        >
-          {appointment.status}
-        </Text>
+      <View style={{ marginTop: 10 }}>
+        <StatusBadge status={appointment.status} />
       </View>
       {isBarber && status === "pending" && (
         <>
           <View style={styles.actions}>
             <Pressable
-              style={[styles.button, styles.approve]}
+              style={({ pressed }) => [
+                styles.button,
+                styles.approve,
+                pressed && styles.buttonPressed,
+              ]}
               onPress={() => onUpdateStatus(id, "approved")}
             >
               <Text style={styles.buttonText}>Approve</Text>
             </Pressable>
 
             <Pressable
-              style={[styles.button, styles.reject]}
+              style={({ pressed }) => [
+                styles.button,
+                styles.reject,
+                pressed && styles.buttonPressed,
+              ]}
               onPress={() => onUpdateStatus(id, "rejected")}
             >
               <Text style={styles.buttonText}>Reject</Text>
@@ -56,7 +51,7 @@ const AppointmentCard = (props: Props) => {
           </View>
         </>
       )}
-    </View>
+    </Pressable>
   );
 };
 
@@ -64,10 +59,10 @@ export default AppointmentCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#0F172A",
+    backgroundColor: "#111827",
     borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    padding: 18,
+    marginBottom: 14,
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -75,14 +70,15 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "600",
-    color: "#E5E7EB",
+    color: "#F9FAFB",
   },
 
   meta: {
-    marginTop: 6,
-    color: "#94A3B8",
+    marginTop: 4,
+    fontSize: 13,
+    color: "#9CA3AF",
   },
 
   statusRow: {
@@ -90,18 +86,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 12,
   },
-
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginRight: 8,
-  },
-
   actions: {
     flexDirection: "row",
-    marginTop: 12,
-    gap: 8,
+    marginTop: 14,
+    gap: 10,
   },
 
   button: {
@@ -122,5 +110,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF",
     fontWeight: "600",
+    fontSize: 14,
+  },
+  cardPressed: {
+    opacity: 0.95,
+    transform: [{ scale: 0.98 }],
+  },
+  buttonPressed: {
+    opacity: 0.85,
   },
 });

@@ -48,8 +48,15 @@ export default function MyAppointmentsScreen() {
   }
 
    async function handleUpdate(id: string, status: AppointmentStatus) {
-     await updateAppointmentStatus(id, status);
-     loadAppointments();
+      try {
+        setLoading(true);
+        await updateAppointmentStatus(id, status);
+        loadAppointments();
+      } catch (error) {
+        alert(error);
+      } finally {
+        setLoading(false);
+      }
    }
 
   if (loading) {
@@ -58,8 +65,11 @@ export default function MyAppointmentsScreen() {
 
   if (appointments.length === 0) {
     return (
-      <View style={styles.center}>
-        <Text>No appointments yet.</Text>
+      <View style={styles.empty}>
+        <Text style={styles.emptyTitle}>No appointments yet ✂️</Text>
+        <Text style={styles.emptyText}>
+          Book your first appointment and it will appear here.
+        </Text>
       </View>
     );
   }
@@ -81,29 +91,26 @@ export default function MyAppointmentsScreen() {
 }
 
 const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   list: {
     padding: 16,
   },
-  card: {
-    backgroundColor: "#111827",
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+  empty: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 24,
   },
 
-  title: {
-    color: "#E5E7EB",
-    fontSize: 16,
+  emptyTitle: {
+    fontSize: 18,
     fontWeight: "600",
+    color: "#E5E7EB",
+    marginBottom: 8,
   },
 
-  meta: {
-    marginVertical: 6,
+  emptyText: {
+    fontSize: 14,
     color: "#9CA3AF",
+    textAlign: "center",
   },
 });

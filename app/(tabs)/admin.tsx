@@ -53,8 +53,15 @@ export default function AdminScreen() {
   }
 
   async function handleUpdate(id: string, status: AppointmentStatus) {
-    await updateAppointmentStatus(id, status);
-    loadAppointments();
+    try {
+      setLoading(true);
+      await updateAppointmentStatus(id, status);
+      loadAppointments();
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (loading) {
@@ -63,8 +70,11 @@ export default function AdminScreen() {
 
   if (!allowed) {
     return (
-      <View style={styles.center}>
-        <Text>Not authorized.</Text>
+      <View style={styles.empty}>
+        <Text style={styles.emptyTitle}>No appointments yet ✂️</Text>
+        <Text style={styles.emptyText}>
+          Book your first appointment and it will appear here.
+        </Text>
       </View>
     );
   }
@@ -86,25 +96,26 @@ export default function AdminScreen() {
 }
 
 const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   list: {
     padding: 16,
   },
-  card: {
-    padding: 16,
-    borderRadius: 12,
-    backgroundColor: "#fff",
-    marginBottom: 12,
+  empty: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 24,
   },
-  meta: {
-    marginBottom: 12,
+
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#E5E7EB",
+    marginBottom: 8,
   },
-  actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+
+  emptyText: {
+    fontSize: 14,
+    color: "#9CA3AF",
+    textAlign: "center",
   },
 });
