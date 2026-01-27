@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { requestAppointment } from "@/lib/api/appointments";
+import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 
 export default function RequestScreen() {
   const { serviceId, serviceName } = useLocalSearchParams<{
@@ -9,7 +10,7 @@ export default function RequestScreen() {
     serviceName: string;
   }>();
 
-  const router = useRouter();
+  // const router = useRouter();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,10 @@ export default function RequestScreen() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (loading) {
+    return <ActivityIndicatorComponent />;
   }
 
   return (

@@ -1,11 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import {
   getPendingAppointments,
   updateAppointmentStatus,
@@ -14,6 +8,7 @@ import { isBarber } from "@/lib/api/admin";
 import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
 import AppointmentCard from "@/components/AppointmentCard";
+import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 
 export default function AdminScreen() {
   const [appointments, setAppointments] = useState<AppointmentWithService[]>(
@@ -27,9 +22,6 @@ export default function AdminScreen() {
       checkAccess();
     }, []),
   );
-  // useEffect(() => {
-  //   checkAccess();
-  // }, []);
 
   async function checkAccess() {
     const ok = await isBarber();
@@ -56,11 +48,7 @@ export default function AdminScreen() {
   }
 
   if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    return <ActivityIndicatorComponent />;
   }
 
   if (!allowed) {

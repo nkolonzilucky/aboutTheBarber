@@ -1,15 +1,9 @@
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-  Pressable,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet, Pressable } from "react-native";
 import { getServices } from "@/lib/api/services";
 import type { Service } from "@/types/db";
+import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 
 export default function ServicesScreen() {
   const [services, setServices] = useState<Service[]>([]);
@@ -28,13 +22,7 @@ export default function ServicesScreen() {
     setLoading(false);
   }
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  if (loading) return <ActivityIndicatorComponent />;
 
   return (
     <FlatList
@@ -66,11 +54,6 @@ export default function ServicesScreen() {
 }
 
 const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   list: {
     padding: 16,
   },

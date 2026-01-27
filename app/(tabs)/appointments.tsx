@@ -16,12 +16,6 @@ export default function MyAppointmentsScreen() {
     [],
   );
   const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   loadAppointments();
-  //   console.log("appointment loaded");
-  // }, []);
-
   useFocusEffect(
     useCallback(() => {
       loadAppointments();
