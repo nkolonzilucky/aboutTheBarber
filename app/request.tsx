@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { requestAppointment } from "@/lib/api/appointments";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { validateAppointmentTime } from "@/lib/helpers";
 
 export default function RequestScreen() {
   const { serviceId, serviceName } = useLocalSearchParams<{
@@ -28,6 +29,11 @@ export default function RequestScreen() {
 
     try {
       setLoading(true);
+      const validation = validateAppointmentTime(appointmentTime);
+      if (!validation.valid) {
+        Alert.alert("Invalid time", validation.reason);
+        return;
+      }
       await requestAppointment(serviceId, appointmentTime);
       Alert.alert("Requested", "Your appointment is pending approval");
       router.back();
