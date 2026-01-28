@@ -5,6 +5,7 @@ import { requestAppointment } from "@/lib/api/appointments";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { validateAppointmentTime } from "@/lib/helpers";
+import { notifyBarberNewAppointment } from "@/lib/notifications";
 
 export default function RequestScreen() {
   const { serviceId, serviceName } = useLocalSearchParams<{
@@ -36,6 +37,7 @@ export default function RequestScreen() {
       }
       await requestAppointment(serviceId, appointmentTime);
       Alert.alert("Requested", "Your appointment is pending approval");
+      await notifyBarberNewAppointment(appointmentTime, serviceName);
       router.back();
     } catch (e) {
       if (String(e).includes("User not authenticated")) {

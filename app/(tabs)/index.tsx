@@ -3,12 +3,16 @@ import { View, Text, StyleSheet } from "react-native";
 import { getBarberProfile } from "@/lib/api/barber";
 import type { BarberProfile } from "@/types/db";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
+import { registerForNotifications } from "@/lib/notifications";
 
 export default function ProfileScreen() {
   const [profile, setProfile] = useState<BarberProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    registerForNotifications().catch(() => {
+      // silently fail — app still works
+    });
     loadProfile();
   }, []);
 

@@ -10,6 +10,7 @@ import { router, useFocusEffect } from "expo-router";
 import AppointmentCard from "@/components/AppointmentCard";
 import { isBarber } from "@/lib/api/admin";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
+import { scheduleAppointmentReminder } from "@/lib/notifications";
 
 export default function MyAppointmentsScreen() {
   const [appointments, setAppointments] = useState<AppointmentWithService[]>(
@@ -47,16 +48,23 @@ export default function MyAppointmentsScreen() {
     }
   }
 
-   async function handleUpdate(id: string, status: AppointmentStatus) {
-      try {
-        setLoading(true);
-        await updateAppointmentStatus(id, status);
-        loadAppointments();
-      } catch (error) {
-        alert(error);
-      } finally {
-        setLoading(false);
-      }
+   async function handleUpdate(
+     id: string,
+     status: AppointmentStatus,
+     appointmentAt: string,
+   ) {
+     try {
+       setLoading(true);
+       await updateAppointmentStatus(id, status);
+       loadAppointments();
+       if (status === "approved") {
+         await scheduleAppointmentReminder(appointmentAt);
+       }
+     } catch (error) {
+       alert(error);
+     } finally {
+       setLoading(false);
+     }
    }
 
   if (loading) {

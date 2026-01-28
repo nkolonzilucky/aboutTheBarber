@@ -6,7 +6,11 @@ import { StatusBadge } from "./StatusBadge";
 type Props = {
   appointment: AppointmentWithService;
   isBarber: boolean;
-  onUpdateStatus: (id: string, status: AppointmentStatus) => void;
+  onUpdateStatus: (
+    id: string,
+    status: AppointmentStatus,
+    appointmentAt: string,
+  ) => void;
 };
 
 const AppointmentCard = (props: Props) => {
@@ -37,7 +41,9 @@ const AppointmentCard = (props: Props) => {
                 styles.approve,
                 pressed && styles.buttonPressed,
               ]}
-              onPress={() => onUpdateStatus(id, "approved")}
+              onPress={() =>
+                onUpdateStatus(id, "approved", appointment.appointment_at)
+              }
             >
               <Text style={styles.buttonText}>Approve</Text>
             </Pressable>
@@ -48,7 +54,9 @@ const AppointmentCard = (props: Props) => {
                 styles.reject,
                 pressed && styles.buttonPressed,
               ]}
-              onPress={() => onUpdateStatus(id, "rejected")}
+              onPress={() =>
+                onUpdateStatus(id, "rejected", appointment.appointment_at)
+              }
             >
               <Text style={styles.buttonText}>Reject</Text>
             </Pressable>
