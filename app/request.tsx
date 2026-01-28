@@ -40,6 +40,12 @@ export default function RequestScreen() {
     } catch (e) {
       if (String(e).includes("User not authenticated")) {
         router.push("/login");
+      } else if (
+        String(e).includes(
+          "This time slot is already booked. Please choose another time.",
+        )
+      ) {
+        alert(e);
       } else {
         console.log(e);
         Alert.alert("Error", "Could not request appointment");

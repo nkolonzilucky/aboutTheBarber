@@ -90,6 +90,22 @@ export async function getAllAppointments(): Promise<AppointmentWithService[]> {
   return (data as AppointmentWithService[]) ?? [];
 }
 
+export async function hasAppointmentConflict(appointmentAt: string) {
+  const { data, error } = await supabase
+    .from("appointments")
+    .select("id")
+    .eq("appointment_at", appointmentAt)
+    .neq("status", "rejected")
+    .limit(1);
+
+  if (error) {
+    throw error;
+  }
+
+  return data.length > 0;
+}
+
+
 export async function requestAppointment(
   serviceId: string,
   appointment_at: string,
@@ -99,6 +115,14 @@ export async function requestAppointment(
   if (!user) {
     throw new Error("User not authenticated");
   }
+
+   const conflict = await hasAppointmentConflict(appointment_at);
+
+   if (conflict) {
+     throw new Error(
+       "This time slot is already booked. Please choose another time.",
+     );
+   }
 
   const validation = validateAppointmentTime(appointment_at);
 
