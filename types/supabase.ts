@@ -10,129 +10,132 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.1"
-  }
+    PostgrestVersion: "14.1";
+  };
   public: {
     Tables: {
       appointments: {
         Row: {
-          appointment_at: string
-          created_at: string | null
-          id: string
-          service_id: string | null
-          status: Database["public"]["Enums"]["appointment_status"]
-          user_id: string | null
-        }
+          appointment_at: string;
+          created_at: string | null;
+          id: string;
+          service_id: string | null;
+          status: Database["public"]["Enums"]["appointment_status"];
+          user_id: string | null;
+        };
         Insert: {
-          appointment_at: string
-          created_at?: string | null
-          id?: string
-          service_id?: string | null
-          status?: Database["public"]["Enums"]["appointment_status"]
-          user_id?: string | null
-        }
+          appointment_at: string;
+          created_at?: string | null;
+          id?: string;
+          service_id?: string | null;
+          status?: Database["public"]["Enums"]["appointment_status"];
+          user_id?: string | null;
+        };
         Update: {
-          appointment_at?: string
-          created_at?: string | null
-          id?: string
-          service_id?: string | null
-          status?: Database["public"]["Enums"]["appointment_status"]
-          user_id?: string | null
-        }
+          appointment_at?: string;
+          created_at?: string | null;
+          id?: string;
+          service_id?: string | null;
+          status?: Database["public"]["Enums"]["appointment_status"];
+          user_id?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "appointments_service_id_fkey"
-            columns: ["service_id"]
-            isOneToOne: false
-            referencedRelation: "services"
-            referencedColumns: ["id"]
+            foreignKeyName: "appointments_service_id_fkey";
+            columns: ["service_id"];
+            isOneToOne: false;
+            referencedRelation: "services";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       availability: {
         Row: {
-          created_at: string
-          day_of_week: number
-          end_time: string
-          id: string
-          slot_duration_min: number
-          start_time: string
-        }
+          created_at: string;
+          day_of_week: number;
+          end_time: string;
+          id: string;
+          slot_duration_min: number;
+          start_time: string;
+        };
         Insert: {
-          created_at?: string
-          day_of_week: number
-          end_time: string
-          id?: string
-          slot_duration_min: number
-          start_time: string
-        }
+          created_at?: string;
+          day_of_week: number;
+          end_time: string;
+          id?: string;
+          slot_duration_min: number;
+          start_time: string;
+        };
         Update: {
-          created_at?: string
-          day_of_week?: number
-          end_time?: string
-          id?: string
-          slot_duration_min?: number
-          start_time?: string
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          day_of_week?: number;
+          end_time?: string;
+          id?: string;
+          slot_duration_min?: number;
+          start_time?: string;
+        };
+        Relationships: [];
+      };
       barber_profile: {
         Row: {
-          avatar_url: string | null
-          bio: string | null
-          id: string
-          name: string
-        }
+          avatar_url: string | null;
+          bio: string | null;
+          id: string;
+          name: string;
+        };
         Insert: {
-          avatar_url?: string | null
-          bio?: string | null
-          id?: string
-          name: string
-        }
+          avatar_url?: string | null;
+          bio?: string | null;
+          id?: string;
+          name: string;
+        };
         Update: {
-          avatar_url?: string | null
-          bio?: string | null
-          id?: string
-          name?: string
-        }
-        Relationships: []
-      }
+          avatar_url?: string | null;
+          bio?: string | null;
+          id?: string;
+          name?: string;
+        };
+        Relationships: [];
+      };
       services: {
         Row: {
-          duration_minutes: number
-          id: string
-          name: string
-          price: number
-        }
+          duration_minutes: number;
+          id: string;
+          name: string;
+          price: number;
+        };
         Insert: {
-          duration_minutes: number
-          id?: string
-          name: string
-          price: number
-        }
+          duration_minutes: number;
+          id?: string;
+          name: string;
+          price: number;
+        };
         Update: {
-          duration_minutes?: number
-          id?: string
-          name?: string
-          price?: number
-        }
-        Relationships: []
-      }
-    }
+          duration_minutes?: number;
+          id?: string;
+          name?: string;
+          price?: number;
+        };
+        Relationships: [];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      get_slot_duration_for_datetime: {
+        Args: { appointment_at: string };
+        Returns: number;
+      };
+    };
     Enums: {
-      appointment_status: "pending" | "approved" | "rejected"
-    }
+      appointment_status: "pending" | "approved" | "rejected";
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 

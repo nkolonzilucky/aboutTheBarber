@@ -1,5 +1,34 @@
-import { Availability } from "@/types/db";
+import { AppointmentWithService, Availability } from "@/types/db";
+import { getSlotDurationMin } from "./api/availability";
 
+export function excludeBookedSlots(
+  slots: TimeSlot[],
+  appointments: AppointmentWithService[],
+): TimeSlot[] {
+  return slots.filter((slot) => {
+    const slotStart = new Date(slot.start).getTime();
+    const slotEnd = new Date(slot.end).getTime();
+
+    const overlapping = appointments.some((appt) => {
+      if (appt.status !== "approved") return false;
+
+      const apptStart = new Date(appt.appointment_at).getTime();
+      let apptEnd = -1;
+      getSlotDurationMin(appt.appointment_at)
+        .then((slot_duration_min) => {
+          apptEnd = addMinutes(
+            new Date(appt.appointment_at),
+            slot_duration_min,
+          ).getTime();
+        })
+        .catch(() => alert("Error while calculating appointment end time."));
+
+      return slotStart < apptEnd && slotEnd > apptStart;
+    });
+
+    return !overlapping;
+  });
+}
 
 export type TimeSlot = {
   start: string; // ISO

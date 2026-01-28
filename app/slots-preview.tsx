@@ -1,7 +1,8 @@
 import { Text, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { getAvailability } from "@/lib/api/availability";
-import { generateSlotsForDay, TimeSlot } from "@/lib/slots";
+import { excludeBookedSlots, generateSlotsForDay, TimeSlot } from "@/lib/slots";
+import { getAppointmentsForDate } from "@/lib/api/appointments";
 
 export default function SlotsPreview() {
   const [slots, setSlots] = useState<TimeSlot[]>([]);
@@ -15,8 +16,13 @@ export default function SlotsPreview() {
 
     const today = new Date().toISOString().slice(0, 10);
     const generated = generateSlotsForDay(today, availability);
+    const appointments = await getAppointmentsForDate(today);
 
-    setSlots(generated);
+    const freeSlots = excludeBookedSlots(generated, appointments);
+    console.log("today, appointments", appointments);
+    console.log("free slots", freeSlots);
+
+      setSlots(freeSlots);
   }
 
   return (

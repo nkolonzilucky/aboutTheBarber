@@ -141,3 +141,30 @@ export async function requestAppointment(
     throw error;
   }
 }
+
+export async function getAppointmentsForDate(
+  dateISO: string,
+): Promise<AppointmentWithService[]> {
+  const start = `${dateISO}T00:00:00.000Z`;
+  const end = `${dateISO}T23:59:59.999Z`;
+
+  const { data, error } = await supabase
+    .from("appointments")
+    .select(
+      `
+      id,
+      appointment_at,
+      status,
+      service_id,
+      services (
+        name
+      )
+    `,
+    )
+    .gte("appointment_at", start)
+    .lte("appointment_at", end)
+    .eq("status", "approved");
+
+  if (error) throw error;
+  return data as AppointmentWithService[];
+}

@@ -12,6 +12,18 @@ export async function getAvailability() {
   return data as Availability[]
 }
 
+export async function getSlotDurationMin(
+  appointmentAtISO: string,
+): Promise<number> {
+  const { data, error } = await supabase.rpc("get_slot_duration_for_datetime", {
+    appointment_at: appointmentAtISO,
+  });
+
+  if (error) throw error;
+
+  return data;
+}
+
 export async function updateAvailability(
   id: string,
   payload: Partial<Omit<Availability, 'id'>>
