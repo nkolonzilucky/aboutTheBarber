@@ -1,3 +1,4 @@
+import { validateAppointmentTime } from "../helpers";
 import { supabase } from "../supabase";
 import { getCurrentUser } from "./auth";
 import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
@@ -29,11 +30,12 @@ export async function getPendingAppointments(): Promise<
   return (data as AppointmentWithService[]) ?? [];
 }
 
-
-export async function updateAppointmentStatus(id: string, status: AppointmentStatus) {
+export async function updateAppointmentStatus(
+  id: string,
+  status: AppointmentStatus,
+) {
   return supabase.from("appointments").update({ status }).eq("id", id);
 }
-
 
 export async function getMyAppointments(): Promise<AppointmentWithService[]> {
   const user = await getCurrentUser();
@@ -88,7 +90,6 @@ export async function getAllAppointments(): Promise<AppointmentWithService[]> {
   return (data as AppointmentWithService[]) ?? [];
 }
 
-
 export async function requestAppointment(
   serviceId: string,
   appointment_at: string,
@@ -97,6 +98,12 @@ export async function requestAppointment(
 
   if (!user) {
     throw new Error("User not authenticated");
+  }
+
+  const validation = validateAppointmentTime(appointment_at);
+
+  if (!validation.valid) {
+    throw new Error(validation.reason);
   }
 
   const { error } = await supabase.from("appointments").insert({
