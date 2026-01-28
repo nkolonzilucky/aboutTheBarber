@@ -49,6 +49,33 @@ export type Database = {
           },
         ]
       }
+      availability: {
+        Row: {
+          created_at: string
+          day_of_week: number
+          end_time: string
+          id: string
+          slot_duration_min: number
+          start_time: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week: number
+          end_time: string
+          id?: string
+          slot_duration_min: number
+          start_time: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          slot_duration_min?: number
+          start_time?: string
+        }
+        Relationships: []
+      }
       barber_profile: {
         Row: {
           avatar_url: string | null

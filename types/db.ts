@@ -6,6 +6,7 @@ export type BarberProfile =
 export type Service = Database["public"]["Tables"]["services"]["Row"];
 
 export type Appointment = Database["public"]["Tables"]["appointments"]["Row"];
+export type Availability = Database["public"]["Tables"]["availability"]["Row"];
 
 export type AppointmentStatus =
   Database["public"]["Enums"]["appointment_status"];
