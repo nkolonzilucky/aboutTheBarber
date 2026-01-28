@@ -9,7 +9,7 @@ import type { AppointmentStatus, AppointmentWithService } from "@/types/db";
 import { router, useFocusEffect } from "expo-router";
 import AppointmentCard from "@/components/AppointmentCard";
 import ActivityIndicatorComponent from "@/components/ActivityIndicatorComponent";
-import AvailabilityScreen from "../availability";
+import SlotsPreview from "../slots-preview";
 
 export default function AdminScreen() {
   const [appointments, setAppointments] = useState<AppointmentWithService[]>(
@@ -82,7 +82,7 @@ export default function AdminScreen() {
 
   return (
     <FlatList
-      ListHeaderComponent={<AvailabilityScreen />}
+      ListHeaderComponent={<SlotsPreview />}
       contentContainerStyle={styles.list}
       data={appointments}
       keyExtractor={(item) => item.id}
