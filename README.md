@@ -15,7 +15,7 @@
     Below is a short screen recording demonstrating appointment creation, notifcation, overlap restriction, and status update.
 </p>
 <p align="center">
-    <img src="assets/demo/aboutTheBarber-app-demo.gif" width="250" style="margin-horizontal: auto;" />
+    <img src="assets/demo/aboutTheBarber-app-demo.gif" width="250" style="margin-horizontal: auto; border-radius: 25px;" />
 </p>
 <!-- ▶️ [Watch demo](assets/demo/mood-app-demo.gif) -->
 
