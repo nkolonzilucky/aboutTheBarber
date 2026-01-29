@@ -46,8 +46,7 @@ Junior Mobile / Full-Stack Developer with hands-on experience building productio
 
 ## Mobile & Frontend Projects
 
-- Built a cross-platform mobile apps using Expo (React Native) and TypeScript
-- Designed and implemented a Supabase/PostgreSQL backend with user authentication
+- Built cross-platform mobile apps using Expo (React Native), TypeScript and Supabase/PostgreSQL  
 - Enforced user-scoped data access using Row Level Security (RLS)
 - Implemented server-side rate limiting using PostgreSQL triggers and functions
 - Created a typed API layer to keep client code aligned with the database schema
