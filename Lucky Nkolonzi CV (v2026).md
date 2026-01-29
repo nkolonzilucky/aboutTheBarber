@@ -4,7 +4,6 @@ Junior Mobile / Full-Stack Developer
 
 📍 South Africa  
 🔗 GitHub: <https://github.com/nkolonzilucky>  
-🔗 Portfolio: (to be added)  
 
 ---
 
@@ -67,7 +66,7 @@ Junior Mobile / Full-Stack Developer with hands-on experience building productio
 
 ### Software Engineer – Support Team
 
-Hexagon J5, Cape Town (Hybrid), RSA | May 2021 – Jun 2024
+Hexagon J5, Cape Town, RSA | May 2021 – Jun 2024
 
 - Designed Python-based ETL scripts to import and transform flat files into relational databases, restoring lost data and enabling quality assurance testing.
 - Conducted reconciliation of data discrepancies, identifying mismatched records and implementing corrective SQL/Python scripts.
@@ -77,7 +76,7 @@ Hexagon J5, Cape Town (Hybrid), RSA | May 2021 – Jun 2024
 
 ### Systems Engineer
 
-Tata Consultancy Services, Cape Town (Hybrid), RSA | Mar 2020 – Mar 2021
+Tata Consultancy Services, Cape Town, RSA | Mar 2020 – Mar 2021
 
 - Built and maintained a promotions data pipeline using SQL and Python (Pandas), integrating 3 large CSV sources into standardized formats.
 - Improved data ingestion by eliminating redundant uploads, saving time and processing resources.
@@ -103,14 +102,14 @@ Eskom Distribution, Cape Town | Mar 2017 – Feb 2019
 
 ## Education & Certifications
 
+- **Bachelor of Science (BSc) in Electrical Engineering**  - 2017
+  | **University of Cape Town**
+
 - **Associate Data Analyst Certificate** - 2026
   | **DataCamp**
   
 - **Microsoft Azure Fundamentals (AZ-900)** — 2025  
   | **Microsoft**
-
-- **Bachelor of Science (BSc) in Electrical Engineering**  - 2017
-  | **University of Cape Town**
 
   ### **Certificates of completion** | **Kaggle**
 
