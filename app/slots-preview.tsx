@@ -19,10 +19,8 @@ export default function SlotsPreview() {
     const appointments = await getAppointmentsForDate(today);
 
     const freeSlots = excludeBookedSlots(generated, appointments);
-    console.log("today, appointments", appointments);
-    console.log("free slots", freeSlots);
 
-      setSlots(freeSlots);
+    setSlots(freeSlots);
   }
 
   return (

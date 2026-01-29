@@ -13,15 +13,7 @@ export function excludeBookedSlots(
       if (appt.status !== "approved") return false;
 
       const apptStart = new Date(appt.appointment_at).getTime();
-      let apptEnd = -1;
-      getSlotDurationMin(appt.appointment_at)
-        .then((slot_duration_min) => {
-          apptEnd = addMinutes(
-            new Date(appt.appointment_at),
-            slot_duration_min,
-          ).getTime();
-        })
-        .catch(() => alert("Error while calculating appointment end time."));
+      let apptEnd = addMinutes(new Date(appt.appointment_at), 30).getTime();
 
       return slotStart < apptEnd && slotEnd > apptStart;
     });
