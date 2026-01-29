@@ -4,18 +4,18 @@
 <!-- markdownlint-disable MD033 -->
 
 <p align="center">
-  <img src="assets/screenshots/00-login-screen.png" width="200" style="border-radius: 25px; margin: 6px;"/>
+  <img src="assets/screenshots/00-services-screen.png" width="200" style="border-radius: 25px; margin: 6px;"/>
   <!-- <img src="assets/screenshots/01-default-screen.png" width="200" style="border-radius: 25px; margin: 6px;" /> -->
-  <img src="assets/screenshots/02-new-mood-entry.png" width="200" style="border-radius: 25px; margin: 6px;"/>
-  <img src="assets/screenshots/03-mood-update-screen.png" width="200"style="border-radius: 25px; margin: 6px;" />
-  <img src="assets/screenshots/05-rate-limit-alert.png" width="200" style="border-radius: 25px; margin: 6px;"/>
+  <img src="assets/screenshots/01-create-screen.png" width="200" style="border-radius: 25px; margin: 6px;"/>
+  <img src="assets/screenshots/02-notification.png" width="200"style="border-radius: 25px; margin: 6px;" />
+  <img src="assets/screenshots/04-appointments.png" width="200" style="border-radius: 25px; margin: 6px;"/>
 </p>
 
 <p align="center">
-    Below is a short screen recording demonstrating mood creation, update, rate limiting, and deletion.
+    Below is a short screen recording demonstrating appointment creation, notifcation, overlap restriction, and status update.
 </p>
 <p align="center">
-    <img src="assets/demo/mood-app-demo.gif" width="250" style="margin-horizontal: auto;" />
+    <img src="assets/demo/aboutTheBarber-app-demo.gif" width="250" style="margin-horizontal: auto;" />
 </p>
 <!-- ▶️ [Watch demo](assets/demo/mood-app-demo.gif) -->
 
@@ -65,4 +65,3 @@ The system is intentionally designed for clarity, reliability, and simplicity, m
 ## Feature Improvements
 
 - add schedule management
--
