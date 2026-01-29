@@ -21,67 +21,48 @@
 
 ## Overview
 
-The Mood Tracker is a cross-platform mobile application built with Expo and Supabase that allows users to log their emotional state with an optional reflection. The project was intentionally designed to be minimal in scope while demonstrating production-ready patterns such as authentication, database-level constraints, and secure, user-scoped data access.
+This project is a single-barber appointment booking mobile app built as a focused MVP to demonstrate end-to-end product thinking, not just UI screens.
 
-Rather than focusing on feature volume, the app focuses on correctness, and clear separation of concerns across the stack.
+The app allows users to book appointments using predefined availability slots, while giving the barber full control over approvals, and rejections. All booking decisions are driven by real database constraints to prevent invalid states such as double bookings or unavailable times.
 
-## Project Status
-
-This project is intended as a portfolio demonstration of end-to-end mobile app development.
+The system is intentionally designed for clarity, reliability, and simplicity, mirroring real-world service booking workflows.
 
 ## Tech Stack
 
 - Mobile: Expo (React Native)
 - Language: TypeScript
-- Backend: Supabase (PostgreSQL, Auth)
-- Database: PostgreSQL
-- Security: Row Level Security (RLS), database triggers & functions
+- Backend: Supabase (PostgreSQL, Auth, Row Level Security)
 - Tooling: Git, GitHub, VS Code, Bash Terminal
 
 ## Features
 
 - User authentication and session-based data access
-- Create, update, and delete mood entries
-- Mood level selection via a visual slider (0–5) with emoji feedback
-- Optional text reflection for each mood entry
-- Server-enforced rate limiting to prevent abuse
-- Confirmation dialogs for destructive actions
-- Typed API layer for safer client–database interaction
 
-## Architecture and Design Decisions
+### Users can
 
-### Database-first constraints
+- Select a date
+- Submit an appointment request
+- See real-time appointment status (pending / approved / rejected)
 
-Instead of enforcing rules only on the client, the app uses PostgreSQL triggers and functions to enforce a time-based rate limit on mood creation. This ensures the rule is applied regardless of client behavior and prevents circumvention through deletes or modified requests.
+### The barber can
 
-### Secure user-scoped data access
+- View all appointment requests
+- Approve or reject pending appointments
 
-Row Level Security (RLS) policies ensure users can only access and modify their own data. Filtering by user identity happens at the database level, not in the client.
+### The app enforces
 
-### Typed Supabase helpers
-
-Supabase-generated types are used throughout the API layer to reduce runtime errors and keep the client aligned with the database schema.
-
-### Minimal UI, intentional UX
-
-The interface prioritizes clarity and low friction:
-
-- A single screen with scrollable list of mood entries at the bottom
-- A thick and attractive emoji selection slider
-- Confirmation alert for destructive action
-- No alerts for update and save actions, this saves the users from clicking ok to hide the alert.
-- In addition to the save button, a user can also click the return button to save a new entry.
+- Role-based UI behavior (barber vs user)
+- State-driven rendering for appointment lifecycle
 
 ## Running the app locally
 
-- git clone <https://github.com/nkolonzilucky/mood-app>
-- cd mood-app
+- git clone <https://github.com/nkolonzilucky/aboutTheBarber>
+- cd aboutTheBarber
 - npm install
 - Ensure you have a .env file with the following variables: EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY
 - npx expo start
 
 ## Feature Improvements
 
-- Add a google auth provider
-- Add weekly summary stats of the mood levels
-- Represent the summary stats as a line graph to track mood swing trends
+- add schedule management
+-
