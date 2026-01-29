@@ -46,33 +46,21 @@ Junior Mobile / Full-Stack Developer with hands-on experience building productio
 
 ## Mobile & Frontend Projects
 
+- Built a cross-platform mobile apps using Expo (React Native) and TypeScript
+- Designed and implemented a Supabase/PostgreSQL backend with user authentication
+- Enforced user-scoped data access using Row Level Security (RLS)
+- Implemented server-side rate limiting using PostgreSQL triggers and functions
+- Created a typed API layer to keep client code aligned with the database schema
+
 ### 1. 📱 Mood Tracker — Mobile Mood Tracking App - 2026
 
-- Built a cross-platform mobile app using Expo (React Native) and TypeScript
-- Designed and implemented a Supabase/PostgreSQL backend with user authentication
-- Enforced user-scoped data access using Row Level Security (RLS)
-- Implemented server-side rate limiting using PostgreSQL triggers and functions
-- Created a typed API layer to keep client code aligned with the database schema
-- Designed a simple, focused UX including a visual mood slider with emoji feedback
-- Prioritized backend-enforced rules, and cost-aware design decisions
-
 🔗 GitHub Repository: <https://github.com/nkolonzilucky/mood-app>  
 🔗 Demo Video: <https://github.com/nkolonzilucky/mood-app/blob/origin/assets/demo/mood-app-demo.gif>
 
----
+### 2. 📱 aboutTheBarber — Barber Appointment Management App - 2026
 
-### 1. 📱 aboutTheBarber — Barber Appointment Management App - 2026
-
-- Built a cross-platform mobile app using Expo (React Native) and TypeScript
-- Designed and implemented a Supabase/PostgreSQL backend with user authentication
-- Enforced user-scoped data access using Row Level Security (RLS)
-- Implemented server-side rate limiting using PostgreSQL triggers and functions
-- Created a typed API layer to keep client code aligned with the database schema
-- Designed a simple, focused UX including a visual mood slider with emoji feedback
-- Prioritized backend-enforced rules, and cost-aware design decisions
-
-🔗 GitHub Repository: <https://github.com/nkolonzilucky/mood-app>  
-🔗 Demo Video: <https://github.com/nkolonzilucky/mood-app/blob/origin/assets/demo/mood-app-demo.gif>
+🔗 GitHub Repository: <https://github.com/nkolonzilucky/aboutTheBarber>  
+🔗 Demo Video: <https://github.com/nkolonzilucky/aboutTheBarber/blob/origin/assets/demo/aboutTheBarber-app-demo.gif>
 
 ---
 
