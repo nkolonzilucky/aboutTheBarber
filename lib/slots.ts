@@ -1,5 +1,6 @@
 import { AppointmentWithService, Availability } from "@/types/db";
 import { getSlotDurationMin } from "./api/availability";
+import { TimeSlot } from "@/types/timeSlots";
 
 export function excludeBookedSlots(
   slots: TimeSlot[],
@@ -22,10 +23,7 @@ export function excludeBookedSlots(
   });
 }
 
-export type TimeSlot = {
-  start: string; // ISO
-  end: string; // ISO
-};
+
 
 function addMinutes(date: Date, minutes: number) {
   return new Date(date.getTime() + minutes * 60000);
