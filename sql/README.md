@@ -4,5 +4,4 @@ This folder contains the SQL used to define the database schema, security polici
 
 - `01_schema.sql` — Table definitions
 - `02_rls.sql` — Row Level Security policies
-- `03_rate_limit_function.sql` — Business rule enforcement
-- `04_triggers.sql` — Automatic execution hooks
+- `03_get_slot_duration_for_datetime_function.sql` — Get slot duration
