@@ -68,11 +68,21 @@ Junior Mobile / Full-Stack Developer with hands-on experience building productio
 
 Hexagon J5, Cape Town, RSA | May 2021 – Jun 2024
 
-- Designed Python-based ETL scripts to import and transform flat files into relational databases, restoring lost data and enabling quality assurance testing.
-- Conducted reconciliation of data discrepancies, identifying mismatched records and implementing corrective SQL/Python scripts.
-- Enhanced data integrity by writing cleanup scripts and schema modification tools, ensuring accurate reporting datasets.
-- Authored detailed Knowledge Base articles documenting issue resolution and standard operating procedures to support audit readiness.
-- Partnered with global teams to ensure timely delivery of accurate, reconciled datasets.
+Designed and maintained Python-based ETL scripts to import, transform, and reconcile flat-file datasets into relational databases, restoring lost data and enabling downstream quality assurance testing.
+
+Investigated and resolved data discrepancies by identifying mismatched records and implementing corrective SQL and Python scripts, improving data accuracy and audit reliability.
+
+Enhanced data integrity by developing cleanup utilities and schema modification tools, supporting accurate reporting and long-term maintainability.
+
+Worked with React (TypeScript) in internal tools and support-facing interfaces, applying core concepts such as component lifecycle, state management, and Redux to diagnose UI-related issues and support feature behavior.
+
+Prepared and delivered an internal training presentation on React fundamentals (state management, component lifecycle, Redux) to onboard new team members and improve shared understanding across the support team.
+
+Identified UX bottlenecks caused by tightly coupled Redux side effects and advocated for decoupled, optimistic UI updates.
+
+Authored detailed Knowledge Base documentation outlining issue resolution steps and standard operating procedures, contributing to audit readiness and faster incident resolution.
+
+Collaborated with global engineering and support teams to ensure timely delivery of accurate, reconciled datasets in production environments.
 
 ### Systems Engineer
 
